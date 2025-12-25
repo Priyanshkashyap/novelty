@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
+import "./globals.css"; 
+import CartProvider from "../context/CartContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,15 +19,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Navbar */}
+        <nav className="p-4 border-b border-zinc-800 flex justify-end">
+          <button className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+            Cart
+          </button>
+        </nav>
+        <CartProvider>
+        {/* Page Content */}
         {children}
+        </CartProvider>
       </body>
     </html>
   );
