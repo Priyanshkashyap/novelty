@@ -12,10 +12,12 @@ export default function MenuItemm({
   const { id } = usePromise(params);
 
   const cartContext = useCart();
+  
   if (!cartContext) {
-    return <div>Cart context not available</div>;
+    // Optionally, you can render a loading or error state here
+    return <div>Loading...</div>;
   }
-
+// always have a null check before destructing
   const { cart, setCart } = cartContext;
 
   const fil = menuItems.filter((item) => {
@@ -61,12 +63,24 @@ export default function MenuItemm({
               ₹ {item.price}
             </p>
           </div>
-
-          {/* ❌ logic intentionally kept wrong */}
           <button
-            onClick={() => {;setCart([...cart, id])}}
-            className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition"
-          >
+            onClick={() => {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+              // item already in cart → increase quantity
+            setCart(
+              // here array brackets are not used because.map returns array already
+            cart.map(item =>
+            item.id === id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item ));}
+               else {
+            // item not in cart → add new item
+              const itemToAdd = menuItems.find(item => item.id === id);
+              setCart([...cart, { ...itemToAdd, quantity: 1 }]);
+            }
+            }}
+           className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition" >
             add to cart({cart.length})
           </button>
         </div>)

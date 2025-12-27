@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css"; 
 import CartProvider from "../context/CartContext";
+import Link from "next/link";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,9 +30,9 @@ export default function RootLayout({
       >
         {/* Navbar */}
         <nav className="p-4 border-b border-zinc-800 flex justify-end">
-          <button className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
+          <Link href="/cart"className="px-5 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition">
             Cart
-          </button>
+          </Link>
         </nav>
         <CartProvider>
         {/* Page Content */}
