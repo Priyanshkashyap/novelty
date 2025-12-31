@@ -18,7 +18,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
       setCart(JSON.parse(storedCart));
-    }
+    }    
     setMounted(true);
   }, []);
 
